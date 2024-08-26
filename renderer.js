@@ -67,7 +67,7 @@ export const renderer = (onUrlChange) => {
 			iconImage.src = icon
 		}
 
-		context.fillStyle = '#222262'
+		context.fillStyle = '#c848ac'
 		context.fillRect(0, 0, width, height)
 
 		if (isImageLoaded(backgroundImage)) {
