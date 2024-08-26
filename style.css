@@ -5,7 +5,6 @@
 }
 
 @media (prefers-reduced-motion) {
-
 	::view-transition-group(*),
 	::view-transition-old(*),
 	::view-transition-new(*) {
@@ -59,7 +58,7 @@ button {
 	cursor: pointer;
 }
 
-label+label {
+label + label {
 	margin-top: 1.5em;
 }
 

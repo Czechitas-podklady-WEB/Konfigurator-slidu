@@ -12,7 +12,7 @@ export const renderer = (onUrlChange) => {
 	const iconImage = new Image()
 	iconImage.crossOrigin = 'anonymous'
 	const backgroundImage = new Image(width, height)
-	backgroundImage.src = 'background.jpg'
+	backgroundImage.src = 'background.png'
 	let parameters = {}
 
 	backgroundImage.addEventListener('load', () => {
@@ -30,6 +30,15 @@ export const renderer = (onUrlChange) => {
 			isBold ? 'bold' : 'normal'
 		} ${size}px ${fontFamily}, sans-serif`
 	}
+
+	const renderMultiline = (text, lineHeight, alignTop, x, y) =>
+		text.split('\n').forEach((line, i, lines) => {
+			context.fillText(
+				line,
+				x,
+				y + (alignTop ? i : i + 1 - lines.length) * lineHeight,
+			)
+		})
 
 	const isImageLoaded = (image) => image.complete && image.naturalHeight !== 0
 
@@ -68,7 +77,7 @@ export const renderer = (onUrlChange) => {
 		if (icon) {
 			const frameWidth = 432
 			const frameHeight = 432
-			const top = 551
+			const top = 97
 			const left = 1391
 
 			if (isImageLoaded(iconImage)) {
@@ -94,17 +103,11 @@ export const renderer = (onUrlChange) => {
 		context.fillStyle = '#ffffff'
 
 		setFont(94, true)
-		title
-			.toLocaleUpperCase('cs')
-			.split('\n')
-			.forEach((line, i, lines) => {
-				const lineHeight = 112
-				context.fillText(line, 99, 652 - (lines.length - i - 1) * lineHeight)
-			})
-		setFont(46, false)
-		context.fillText(meta1, 99, 740)
-		context.fillText(meta2, 99, 814)
-		context.fillText(meta3, 99, 890)
+		renderMultiline(title.toLocaleUpperCase('cs'), 112, false, 96, 648)
+
+		setFont(48, false)
+		const meta = `${meta1}\n${meta2}\n${meta3}`
+		renderMultiline(meta, 74, true, 103, 736)
 
 		onUrlChange($canvas.toDataURL('image/jpeg'))
 	}
